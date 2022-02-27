@@ -14,4 +14,4 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Javascript](https://pt.wikipedia.org/wiki/JavaScript)
 
 ## Layout 🚧
-<img src="/assets/projeto.png"
+![projeto](https://user-images.githubusercontent.com/98700610/155888757-ec72630c-370b-473e-96ee-1df366a3aa42.png)
