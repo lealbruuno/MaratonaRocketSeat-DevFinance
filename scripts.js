@@ -15,39 +15,42 @@ const Modal = {
     }
 }
 
-const transactions = [
-    {
-        id: 1,
-        description: 'Luz',
-        amount: -50000,
-        date: '23/01/2022',
-    },
-    {
-        id: 2,
-        description: 'Website',
-        amount: 500000,
-        date: '23/01/2022',
-    },
-    {
-        id: 3,
-        description: 'Internet',
-        amount: -20000,
-        date: '23/01/2022',
-    },
-    {
-        id: 4,
-        description: 'App',
-        amount: 200000,
-        date: '23/01/2022',
-    },
-]
-
 const Transaction = {
+    all: [
+        {
+            description: 'Luz',
+            amount: -50000,
+            date: '23/01/2022',
+        },
+        {
+            description: 'Website',
+            amount: 500000,
+            date: '23/01/2022',
+        },
+        {
+            description: 'Internet',
+            amount: -20000,
+            date: '23/01/2022',
+        },
+        {
+            description: 'App',
+            amount: 200000,
+            date: '23/01/2022',
+        },
+    ],
+    add(transaction){
+        Transaction.all.push(transaction)            
+        App.reload()
+    },
+    remove(index){
+        Transaction.all.splice(index,1)
+        App.reload()
+    },
     incomes(){
         let income = 0;
         //pegar todas as transações
         //pegar cada transação
-        transactions.forEach(transction => {
+        Transaction.all.forEach(transction => {
             //se ela for maior que zero
             if(transction.amount > 0){
                 //somar a uma variável e retornar a variável
@@ -58,7 +61,7 @@ const Transaction = {
     },
     expenses(){
         let expense = 0;
-        transactions.forEach(transction => {
+        Transaction.all.forEach(transction => {
             if(transction.amount < 0){
                 expense += transction.amount;
             }
@@ -101,6 +104,9 @@ const DOM = {
         document
         .getElementById('totalDisplay')
         .innerHTML = Utils.formatCurrency(Transaction.total())
+    },
+    clearTransacions(){
+        DOM.transactionsContainer.innerHTML = ""
     }
 }
 
@@ -119,8 +125,57 @@ const Utils = {
     }
 }
 
-transactions.forEach(function(transaction){
-    DOM.addTransaction(transaction)
-})
+const Form = {
+        description: document.querySelector('input#description'),
+        amount: document.querySelector('input#amount'),
+        date: document.querySelector('input#date'),
 
-DOM.updateBalance()
+        getValues(){
+            return{
+                description: Form.description.value,
+                amount: Form.amount.value,
+                date: Form.date.value,
+            }
+        },
+        validateFiels(){
+        const { description,amount,date } = Form.getValues()
+        if ( description.trim()===""|| 
+            amount.trim()===""||
+            date.trim()==="") {
+                throw new Error("Por favor, preencha todos os campos")
+            }
+    },
+    submit(event){
+        event.preventDefault()
+        try {       
+            Form.validateFiels()
+            //formatar os dados para salvar
+            //Form.formatData()
+            //salvar
+            //apagar o dados do formulário
+            //modal feche
+            //atualzar a aplicação
+            
+        } catch (error) {
+            alert(error.message)
+                //verificar se todas as informações foram preenchidas
+            }}
+}
+
+const App = {
+    init(){
+
+        Transaction.all.forEach(transaction =>{
+            DOM.addTransaction(transaction)
+        })
+        
+        DOM.updateBalance()
+    },
+    reload (){
+    DOM.clearTransacions()
+    App.init()
+
+    },
+}
+
+App.init()
