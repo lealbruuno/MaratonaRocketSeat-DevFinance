@@ -1,5 +1,5 @@
 # Dev.Finances 💲
-Projeto em desenvolvimento para administrar melhor ganhos e gastos. Projeto realizado na Maratona Discover @Rocketseat.
+Projeto desenvolvido para administrar melhor ganhos e gastos. Projeto realizado na Maratona 1 do Discover @Rocketseat.
 
 #### Funcionalidades
 * Site para administrar ganhos e gastos (controle financeiro)
